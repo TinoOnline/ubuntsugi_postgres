@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  postgres:
+    # Use official PostgreSQL Alpine image (or build from Dockerfile)
+    # To use Dockerfile: uncomment the line below and comment out 'image' line
+    image: postgres:16-alpine
+    # build: .
+    
+    container_name: postgres_server
+    
+    # Auto-restart policy: container restarts on failure and system reboot
+    restart: always
+    
+    # Environment variables for PostgreSQL configuration
+    # Values from .env file, with defaults if .env doesn't exist
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-mydb}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    
+    # Expose PostgreSQL port to host machine
+    # Format: "host_port:container_port"
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    
+    # Persistent storage volumes
+    volumes:
+      # Named volume for database data (persists after container removal)
+      - postgres_data:/var/lib/postgresql/data
+      # Mount initialization scripts (runs on first startup only)
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    
+    # Network for container communication
+    networks:
+      - postgres_network
+    
+    # Health check to monitor PostgreSQL availability
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# Named volume for persistent data storage
+volumes:
+  postgres_data:
+    driver: local
+
+# Bridge network for container communication
+networks:
+  postgres_network:
+    driver: bridge
+

@@ -1,0 +1,19 @@
+# Environment variables
+.env
+
+# PostgreSQL data
+data/
+*.sql.backup
+
+# Docker
+.docker/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+/Data*
+
