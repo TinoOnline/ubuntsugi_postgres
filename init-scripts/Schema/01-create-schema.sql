@@ -21,7 +21,7 @@ CREATE TABLE products.cash_converters_products (
     id SERIAL PRIMARY KEY,
     link TEXT,
     name TEXT,
-    sku VARCHAR(100),
+    sku VARCHAR(100) UNIQUE,
     region VARCHAR(255),
     category VARCHAR(255),
     categories TEXT,
@@ -30,6 +30,7 @@ CREATE TABLE products.cash_converters_products (
     condition VARCHAR(50),
     stock_status VARCHAR(100),
     timestamp TIMESTAMP,
+    brand VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
