@@ -91,8 +91,76 @@ WHERE category IN (
     'phone-cases-covers', 'carriers'
 );
 
--- Set all remaining unmapped categories to NULL (for "Other")
--- You can create a specific "Other" category in brand_categories if needed
+-- Update Other categories
+UPDATE products.gumtree_products
+SET brand_category_id = (
+    SELECT id FROM products.brand_categories 
+    WHERE category_level_1 = 'Other' 
+    LIMIT 1
+)
+WHERE category IN (
+    'clerical-administrative-cvs', 'beds-headboards', 'drones-gadgets', 'yachts-sailboats',
+    'house-rentals-flat-rentals-offered', 'manufacturing-jobs', 'car-wheels', 'call-centre-jobs',
+    'vintage-antique-jewellery', 'braais-potjie-pots', 'men-s-t+shirts', 'handyman-jobs',
+    'car-rims', 'sports-fitness-gear', 'fashion-accessories-+-others', 'government-ngo-jobs',
+    'kids-bicycles', 'carpets-rugs-mats', 'generators-solar-power', 'boats-jet-skis',
+    'hats', 'stoves-ovens', 'auto-electrical-parts', 'google', 'bathroom-fixtures-and-supplies',
+    'security-cvs', 'arts-entertainment-jobs', 'plants-seedlings', 'industrial-properties-for-sale',
+    'lighting-accessories', 'flemarket-jumble-sale', 'tutors-education-services', 'security-gates-fencing',
+    'wendy-houses', 'sunglasses', 'farm-vehicles-equipment', 'manufacturing', 'motorcycles-scooters',
+    'other-watercraft', 'automotive-services', 'hand-saws', 'other-antique-collectables',
+    'graphic-design-jobs', 'activities-hobbies', 'sheep-goats', 'removals-storage',
+    'appliance-parts', 'hammers', 'other-events', 'musicians-artists', 'classic-vintage-cars',
+    'home-office-desks-chairs', 'model-cars-trains', 'general-worker-cvs', 'accessories-styling',
+    'sports-sports-partners', 'motorcycle-tyres-rims', 'clocks', 'car-interior-accessories',
+    'chandeliers-hanging-lights', 'healthcare-nursing-jobs', 'office-jobs', 'other-sports-leisure-items',
+    'other-community-posts', 'land-plots-for-sale', 'short+term-properties', 'other-retail-jobs',
+    'heavy-truck-buses-spares', 'pest-control', 'travel-agents-tours', 'musical-instruments',
+    'cars-bakkies', 'other-items-for-babies-kids', 'restaurant-bar-cvs', 'construction-skilled-trade-cvs',
+    'air-conditioners', 'fireplaces', 'men-s-suits', 'other-hand-tools', 'tv-stands-wall-units',
+    'wall-lights', 'industrial-machinery', 'car-body-trim', 'men-s-formal-shoes', 'microwaves',
+    'dj-entertainment-services', 'men-s-watches', 'dining-chairs-benches', 'appliance-repairs',
+    'flat-share-house-share', 'kettles-toasters', 'party-catering', 'other-power-tools',
+    'dogs-puppies', 'car-seats', 'store-manager-jobs', 'kayaks-paddle-boats', 'electronics-it-services',
+    'housekeeping-cleaning-jobs', 'other-toys', 'rare-coins-stamps', 'sales-representatives-jobs',
+    'patio-outdoor-furniture', 'sanders', 'car-shocks-suspension-steering-parts', 'clerical-datcapturing-jobs',
+    'aftermarket-service-parts', 'hr-jobs', 'health-beauty-services', 'grinders', 'tourism-jobs',
+    'machinery-spares', 'caravans-trailers', 'gardening-supplies', 'tutors-teaching-jobs',
+    'software-web-developer-jobs', 'jigsaws', 'events-gigs-nightlife', 'essential-home-maintenance',
+    'books-games', 'other-lighting', 'other-electronics', 'ornaments-figurines', 'games',
+    'cleaning-services', 'other', 'baby-monitors', 'fmcg-jobs', 'juicers-blenders-food-processors',
+    'web-designers', 'car-lights', 'logistics-transportation-cvs', 'classic-vintage-cars-spares',
+    'retail-space-for-rent', 'road-bikes', 'women-s-boots', 'chauffeur-airport-transfer',
+    'security-jobs', 'women-s-jewellery', 'car-exterior-accessories', 'sewing-machines',
+    'building-trades', 'au-pair-babysitting-jobs', 'poultry', 'childcare-babysitting-cvs',
+    'binoculars-telescopes', 'teaching-cvs', 'internship-jobs', 'pliers', 'courses-training',
+    'cats-kittens', 'customer-service-jobs', 'chairs', 'chisels', 'couches', 'chest-of-drawers',
+    'antique-clocks', 'sales-jobs', 'it-technician-jobs', 'washing-machines', 'other-home-improvement',
+    'antique-furniture', 'other-replacement-car-part', 'child-care', 'logistics-jobs',
+    'car-brake-parts', 'water-purifiers-geysers', 'sports-fitness-training', 'raw-materials',
+    'women-s-sneakers', 'irons-steamers', 'holiday-homes', 'agriculture-farm-jobs', 'charity-donations',
+    'car-engines-engine-parts', 'estate-agent-jobs', 'landscaping-gardening-services', 'other-home-decor-items',
+    'store-catering-equipment', 'educational-toys', 'antique-lamps-lights', 'motorcycle-helmets-clothes-boots',
+    'mountain-bikes', 'mechanic-jobs', 'photography-video-services', 'other-sales-jobs',
+    'healthcare-nursing-cvs', 'accounting-finance-cvs', 'men-s-jewellery', 'coffee-side-tables',
+    'women-s-clothing-+-other', 'tax-financial-services', 'crystal-glassware', 'heavy-trucks-buses',
+    'camping-gear', 'swimming-pools-accessories', 'other-skill-trade-jobs', 'landline-telephones',
+    'office-equipment-furniture', 'carriers', 'silver-metalware', 'machinery-vehicles',
+    'legal-secretary', 'kitchen-cabinets-modulars', 'braai-accessories', 'other-admin-jobs',
+    'houses-flats-for-sale', 'other-properties', 'baby-feeding-products', 'women-s-watches',
+    'coffee-makers', 'office-space-for-rent', 'furniture-sets', 'fish', 'wedding-venues-wedding-services',
+    'receptionist-jobs', 'computing-it-cvs', 'pet-services', 'other-furniture', 'nail-technician-jobs',
+    'engineering-architecture-jobs', 'other-essential-services', 'general-worker-jobs', 'birds',
+    'pet-accessories', 'other-home-appliances', 'advertising-marketing-cvs', 'catering-services',
+    'weekend-part+time-jobs-cvs', 'hotel-jobs', 'healer-services', 'picture-frames',
+    'bags-handbags-purses', 'paintings-decorations', 'motorcycle-accessories-styling', 'women-s-tees',
+    'wardrobes-cupboards', 'houses-flats-for-rent', 'industrial-properties-for-rent', 'refrigerators-freezers',
+    'gardening-landscaping-cvs', 'dishwashers', 'antiques-collectables', 'display-cabinets',
+    'gardening-tools-lawn-mowers', 'garden-decorations-plants', 'solar-powered-electronics', 'cashier-jobs',
+    'vacuum-cleaners', 'porcelain-ceramics', 'housekeeping-cleaning-cvs', 'car-tyres', 'other-pets',
+    'arts-entertainment-cvs', 'shop-assistant-jobs', 'businesses-for-sale', 'power-tool-parts-accessories',
+    'recruitment-services', 'accounting-finance-jobs', 'tiles-flooring', 'drills'
+);
 
 EOF
 

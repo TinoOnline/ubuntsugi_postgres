@@ -77,7 +77,47 @@ WHERE category IN (
     'Smart Watches', 'Activity Trackers'
 );
 
--- Set all remaining unmapped categories to NULL (for "Other")
+-- Update Other categories
+UPDATE products.cash_converters_products
+SET brand_category_id = (
+    SELECT id FROM products.brand_categories 
+    WHERE category_level_1 = 'Other' 
+    LIMIT 1
+)
+WHERE category IN (
+    'Print Material', 'Running', 'Irrigation', 'Outdoors & Sports', 'Other Toys',
+    'Saws', 'Drill Bits', 'Mixers', 'Farming', 'Combat Sport', 'Sanders',
+    'Books', 'Flashlights & Outdoor Lamps', 'Coaching', 'Metal Detectors',
+    'Health Monitors', 'Soldering Irons', 'Compressed Air Tools', 'Binoculars & Optics',
+    'Boats & Parts', 'Jewellery Boxes & Organisers', 'Tool Boxes & Bags', 'Gas',
+    'Office Equipment', 'Hair Care', 'Building Blocks', 'Multimeters & Electrical Testers',
+    'Necklaces', 'Jacks', 'Security Systems', 'Braais', 'Scrap Precious Metal',
+    'Generators', 'Medical', 'Office Supplies', 'Shavers & Clippers', 'Chains',
+    'Golf', 'Musical Instruments & Equipment', 'Surveillance Equipment', 'Antiques',
+    'Ovens & Stoves', 'Watch Accessories', 'Filter', 'Coffee Makers', 'Appliance',
+    'Clocks', 'Plumbing Tools', 'Pool, Spa, Sauna', 'Doors, Handles & Hinges',
+    'Educational & Board Games', 'Jewellery, Watches & Fashion', 'Lamps & Lighting',
+    'Vehicle Parts & Accessories', 'Toy Remote Controlled', 'Massagers', 'Irons & Clothes Steamers',
+    'Outdoor Wear & Clothing', 'Motocross', 'Handbags & Accessories', 'Remote Controlled',
+    'Guitars & String Instruments', 'Garden Equipment', 'Plates, Cutlery & Kitchenware',
+    'Bicycle Accessories & Parts', 'Baby Care & Nursery', 'Other Rings', 'Cordless Batteries & Chargers',
+    'Air Conditioners', 'Suitcases', 'Sunglasses', 'Cleaning equipment', 'Home & Garden',
+    'Safety Equipment', 'Glue and Sealant', 'Business & Industrial', 'Blades',
+    'Hobbies, Collectables & Antiques', 'Indoor Fans', 'Screwdrivers', 'Impact Drivers',
+    'Power Saws', 'Lighting', 'Ties', 'Fitness', 'Air Compressors', 'Levels',
+    'Dishwashers', 'Paintings & Drawings', 'Motor Bikes', 'Grinders', 'Electric Knives',
+    'Fry Pans', 'Other Hand Tools', 'Wrenches', 'Backpacks & Bags', 'Indoor Furniture',
+    'Drones', 'Analogue Watches', 'Spirit Levels', 'Wind Instruments', 'Fishing',
+    'Drills', 'Catering Equipment', 'Socket Sets', 'Clothes Dryers & Washing Machines',
+    'Keyboards & Pianos', 'Tools, Hardware & Automotive', 'Digital Watches', 'Jackhammers',
+    'Humidifiers', 'Vehicle Alarms & Security', 'Electrical', 'Bathroom', 'Snips',
+    'Steam Cookers', 'Uncategorized', 'Fridges & Freezers', 'Ornaments & Sculptures',
+    'Musical Accessories', 'Welders', 'Stationery', 'Microwaves', 'Spray Guns',
+    'Cleaning & Laundry', 'Planers', 'Memorabilia', 'Toasters', 'Bicycles',
+    'Business Equipment', 'Mugs & Barware', 'Sewing', 'Writing Instruments', 'Rice Cookers',
+    'Rock Climbing', 'Body Care', 'Knives & Tools', 'Ice Machines', 'Telephone',
+    'Solar', 'Clothing', 'Heaters', 'Pliers'
+);
 
 EOF
 
