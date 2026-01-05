@@ -42,6 +42,36 @@ COMMENT ON COLUMN products.cash_converters_products.stock_status IS 'Current sto
 
 
 -- ============================================
+-- CASH CRUSADERS PRODUCTS TABLE
+-- ============================================
+-- Drop and recreate Cash Crusaders products table
+
+DROP TABLE IF EXISTS products.cash_crusaders_products CASCADE;
+
+CREATE TABLE products.cash_crusaders_products (
+    id SERIAL PRIMARY KEY,
+    link TEXT,
+    name TEXT,
+    sku VARCHAR(100) UNIQUE,
+    region VARCHAR(255),
+    category VARCHAR(255),
+    categories TEXT,
+    description TEXT,
+    price DECIMAL(10, 2),
+    stock_status VARCHAR(100),
+    brand VARCHAR(100),
+    timestamp TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+COMMENT ON TABLE products.cash_crusaders_products IS 'Raw product data from Cash Crusaders';
+
+COMMENT ON COLUMN products.cash_crusaders_products.sku IS 'Stock Keeping Unit - unique product identifier';
+COMMENT ON COLUMN products.cash_crusaders_products.categories IS 'Comma-separated list of categories';
+COMMENT ON COLUMN products.cash_crusaders_products.stock_status IS 'Current stock availability status';
+
+
+-- ============================================
 -- GUMTREE PRODUCTS TABLE
 -- ============================================
 -- Drop and recreate Gumtree products table
