@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # ============================================
-# Migration v0.2: Crash Crusaders Products Table
+# Migration v0.2: Cash Crusaders Products Table
 # ============================================
-# This script creates the crash_crusaders_products table
+# This script creates the cash_crusaders_products table
 
 set -e  # Exit on any error
 
@@ -22,18 +22,18 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 echo -e "${YELLOW}==================================================${NC}"
-echo -e "${YELLOW}Migration v0.2: Creating Crash Crusaders Table${NC}"
+echo -e "${YELLOW}Migration v0.2: Creating Cash Crusaders Table${NC}"
 echo -e "${YELLOW}==================================================${NC}"
 
-echo -e "${GREEN}Creating crash_crusaders_products table...${NC}"
+echo -e "${GREEN}Creating cash_crusaders_products table...${NC}"
 
-# Create the crash_crusaders_products table
+# Create the cash_crusaders_products table
 psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" << EOF
 -- Drop table if exists
-DROP TABLE IF EXISTS ${DB_SCHEMA}.crash_crusaders_products CASCADE;
+DROP TABLE IF EXISTS ${DB_SCHEMA}.cash_crusaders_products CASCADE;
 
--- Create crash_crusaders_products table
-CREATE TABLE ${DB_SCHEMA}.crash_crusaders_products (
+-- Create cash_crusaders_products table
+CREATE TABLE ${DB_SCHEMA}.cash_crusaders_products (
     id SERIAL PRIMARY KEY,
     link TEXT,
     name TEXT,
@@ -50,17 +50,17 @@ CREATE TABLE ${DB_SCHEMA}.crash_crusaders_products (
 );
 
 -- Add comments
-COMMENT ON TABLE ${DB_SCHEMA}.crash_crusaders_products IS 'Raw product data from Crash Crusaders';
-COMMENT ON COLUMN ${DB_SCHEMA}.crash_crusaders_products.sku IS 'Stock Keeping Unit - unique product identifier';
-COMMENT ON COLUMN ${DB_SCHEMA}.crash_crusaders_products.categories IS 'Comma-separated list of categories';
-COMMENT ON COLUMN ${DB_SCHEMA}.crash_crusaders_products.stock_status IS 'Current stock availability status';
+COMMENT ON TABLE ${DB_SCHEMA}.cash_crusaders_products IS 'Raw product data from Cash Crusaders';
+COMMENT ON COLUMN ${DB_SCHEMA}.cash_crusaders_products.sku IS 'Stock Keeping Unit - unique product identifier';
+COMMENT ON COLUMN ${DB_SCHEMA}.cash_crusaders_products.categories IS 'Comma-separated list of categories';
+COMMENT ON COLUMN ${DB_SCHEMA}.cash_crusaders_products.stock_status IS 'Current stock availability status';
 
 -- Create indexes for better query performance
-CREATE INDEX idx_crash_sku ON ${DB_SCHEMA}.crash_crusaders_products(sku);
-CREATE INDEX idx_crash_timestamp ON ${DB_SCHEMA}.crash_crusaders_products(timestamp);
-CREATE INDEX idx_crash_price ON ${DB_SCHEMA}.crash_crusaders_products(price);
-CREATE INDEX idx_crash_region ON ${DB_SCHEMA}.crash_crusaders_products(region);
-CREATE INDEX idx_crash_brand ON ${DB_SCHEMA}.crash_crusaders_products(brand);
+CREATE INDEX idx_cash_sku ON ${DB_SCHEMA}.cash_crusaders_products(sku);
+CREATE INDEX idx_cash_timestamp ON ${DB_SCHEMA}.cash_crusaders_products(timestamp);
+CREATE INDEX idx_cash_price ON ${DB_SCHEMA}.cash_crusaders_products(price);
+CREATE INDEX idx_cash_region ON ${DB_SCHEMA}.cash_crusaders_products(region);
+CREATE INDEX idx_cash_brand ON ${DB_SCHEMA}.cash_crusaders_products(brand);
 
 EOF
 

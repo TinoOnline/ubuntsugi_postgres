@@ -4,7 +4,7 @@
 # Migration v0.3: Add Brand Category Column
 # ============================================
 # This script adds brand_category_id column to product tables
-# for gumtree_products, cash_converters_products, and crash_crusaders_products tables
+# for gumtree_products, cash_converters_products, and cash_crusaders_products tables
 
 set -e  # Exit on any error
 
@@ -54,17 +54,17 @@ else
     exit 1
 fi
 
-echo -e "${GREEN}Step 3: Adding brand_category_id column to crash_crusaders_products...${NC}"
+echo -e "${GREEN}Step 3: Adding brand_category_id column to cash_crusaders_products...${NC}"
 
 psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" << EOF
-ALTER TABLE ${DB_SCHEMA}.crash_crusaders_products 
+ALTER TABLE ${DB_SCHEMA}.cash_crusaders_products 
 ADD COLUMN IF NOT EXISTS brand_category_id INTEGER;
 EOF
 
 if [ $? -eq 0 ]; then
-    echo -e "${GREEN}✓ Crash Crusaders table updated successfully${NC}"
+    echo -e "${GREEN}✓ Cash Crusaders table updated successfully${NC}"
 else
-    echo -e "${RED}✗ Failed to update Crash Crusaders table${NC}"
+    echo -e "${RED}✗ Failed to update Cash Crusaders table${NC}"
     exit 1
 fi
 
@@ -89,13 +89,13 @@ WHERE table_schema = '${DB_SCHEMA}'
   AND table_name = 'gumtree_products'
   AND column_name = 'brand_category_id'
 UNION ALL
-SELECT 'crash_crusaders_products' as table_name, 
+SELECT 'cash_crusaders_products' as table_name, 
        column_name, 
        data_type,
        is_nullable
 FROM information_schema.columns 
 WHERE table_schema = '${DB_SCHEMA}' 
-  AND table_name = 'crash_crusaders_products'
+  AND table_name = 'cash_crusaders_products'
   AND column_name = 'brand_category_id';
 EOF
 
